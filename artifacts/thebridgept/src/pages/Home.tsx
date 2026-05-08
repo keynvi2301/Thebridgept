@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope, ChevronLeft, ChevronRight, Star, Send, CheckCircle2, Linkedin, Instagram, Plus } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { useState, useEffect, useCallback } from "react";
@@ -123,12 +123,12 @@ export default function Home() {
     }
   };
 
-  const fadeUp = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
-  const staggerContainer = {
+  const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
