@@ -5,19 +5,6 @@
  * API specification
  * OpenAPI spec version: 0.1.0
  */
-export interface HealthStatus {
-  status: string;
-}
-
-export interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  quote: string;
-  stars: number;
-  status: string;
-  createdAt: string;
-}
 
 export interface SubmitTestimonialBody {
   /** @minLength 2 */
@@ -31,8 +18,4 @@ export interface SubmitTestimonialBody {
    * @maximum 5
    */
   stars: number;
-}
-
-export interface ErrorResponse {
-  error: string;
 }

@@ -1,47 +1,63 @@
 import { motion } from "framer-motion";
-import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope, ChevronLeft, ChevronRight, Star, Send, CheckCircle2 } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { useState, useEffect, useCallback } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useListTestimonials, useSubmitTestimonial } from "@workspace/api-client-react";
 import logoSrc from "@assets/8091f93f-82a7-472d-a344-02b2eedf6658_1778220687613.jpeg";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [hoverStar, setHoverStar] = useState(0);
 
-  const testimonials = [
-    {
-      name: "Priya Mehta",
-      role: "Office Professional",
-      quote: "I had been struggling with lower back pain for over two years. After just six sessions with Dr. Janvi, I was pain-free and back at my desk without discomfort. The home visits made it so easy — no travelling in pain.",
-      stars: 5,
-    },
-    {
-      name: "Arjun Shah",
-      role: "Amateur Cricketer",
-      quote: "I tore my rotator cuff mid-season and thought my year was over. Dr. Janvi's sports rehabilitation plan had me back on the field faster than I ever imagined. Incredibly knowledgeable and genuinely invested in my recovery.",
-      stars: 5,
-    },
-    {
-      name: "Rekha Patel",
-      role: "Post Knee Replacement Patient",
-      quote: "After my knee replacement, I was nervous about physiotherapy. Dr. Janvi was patient, thorough, and explained every step. Within three months I was climbing stairs comfortably. I recommend TheBridgePT to everyone.",
-      stars: 5,
-    },
-    {
-      name: "Vikram Desai",
-      role: "Senior, Age 68",
-      quote: "The telehealth consultation was a blessing. Dr. Janvi assessed my posture and movement over video and gave me a clear exercise program. My mobility has improved significantly and I feel years younger.",
-      stars: 5,
-    },
-    {
-      name: "Nisha Trivedi",
-      role: "Marathon Runner",
-      quote: "Persistent shin splints were ruining my training. Dr. Janvi used IASTM and Kinesio taping techniques I had never experienced before. The results were remarkable. I completed my marathon pain-free.",
-      stars: 5,
-    },
+  const fallbackTestimonials = [
+    { id: -1, name: "Priya Mehta", role: "Office Professional", quote: "I had been struggling with lower back pain for over two years. After just six sessions with Dr. Janvi, I was pain-free and back at my desk without discomfort. The home visits made it so easy — no travelling in pain.", stars: 5, status: "approved", createdAt: new Date().toISOString() },
+    { id: -2, name: "Arjun Shah", role: "Amateur Cricketer", quote: "I tore my rotator cuff mid-season and thought my year was over. Dr. Janvi's sports rehabilitation plan had me back on the field faster than I ever imagined. Incredibly knowledgeable and genuinely invested in my recovery.", stars: 5, status: "approved", createdAt: new Date().toISOString() },
+    { id: -3, name: "Rekha Patel", role: "Post Knee Replacement Patient", quote: "After my knee replacement, I was nervous about physiotherapy. Dr. Janvi was patient, thorough, and explained every step. Within three months I was climbing stairs comfortably. I recommend TheBridgePT to everyone.", stars: 5, status: "approved", createdAt: new Date().toISOString() },
+    { id: -4, name: "Vikram Desai", role: "Senior, Age 68", quote: "The telehealth consultation was a blessing. Dr. Janvi assessed my posture and movement over video and gave me a clear exercise program. My mobility has improved significantly and I feel years younger.", stars: 5, status: "approved", createdAt: new Date().toISOString() },
+    { id: -5, name: "Nisha Trivedi", role: "Marathon Runner", quote: "Persistent shin splints were ruining my training. Dr. Janvi used IASTM and Kinesio taping techniques I had never experienced before. The results were remarkable. I completed my marathon pain-free.", stars: 5, status: "approved", createdAt: new Date().toISOString() },
   ];
+
+  const { data: apiTestimonials } = useListTestimonials();
+  const testimonials = (apiTestimonials && apiTestimonials.length > 0) ? apiTestimonials : fallbackTestimonials;
+
+  const reviewSchema = z.object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    role: z.string().min(2, "Please describe your role or condition"),
+    quote: z.string().min(20, "Please write at least 20 characters"),
+    stars: z.number().min(1).max(5),
+  });
+
+  type ReviewFormValues = z.infer<typeof reviewSchema>;
+
+  const form = useForm<ReviewFormValues>({
+    resolver: zodResolver(reviewSchema),
+    defaultValues: { name: "", role: "", quote: "", stars: 5 },
+  });
+
+  const submitMutation = useSubmitTestimonial({
+    mutation: {
+      onSuccess: () => {
+        setSubmitSuccess(true);
+        form.reset();
+      },
+    },
+  });
+
+  const onSubmitReview = (values: ReviewFormValues) => {
+    submitMutation.mutate({ data: values });
+  };
 
   const nextTestimonial = useCallback(() => {
     setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
@@ -382,9 +398,20 @@ export default function Home() {
               <motion.p variants={fadeUp} className="text-sm font-medium text-primary uppercase tracking-widest mb-3">
                 Patient Stories
               </motion.p>
-              <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-serif font-bold text-foreground">
+              <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
                 Real Recoveries, Real Results
               </motion.h2>
+              <motion.div variants={fadeUp}>
+                <Button
+                  variant="outline"
+                  onClick={() => { setSubmitSuccess(false); setShowReviewModal(true); }}
+                  className="rounded-full border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all"
+                  data-testid="button-share-review"
+                >
+                  <Star size={15} className="mr-2" />
+                  Share Your Experience
+                </Button>
+              </motion.div>
             </motion.div>
 
             <motion.div
@@ -606,6 +633,141 @@ export default function Home() {
           <p className="text-sm text-muted-foreground font-medium">Dr. Janvi Sarvaiya (PT)</p>
         </div>
       </footer>
+
+      {/* Review Submission Modal */}
+      <Dialog open={showReviewModal} onOpenChange={(open) => { setShowReviewModal(open); if (!open) setSubmitSuccess(false); }}>
+        <DialogContent className="sm:max-w-lg rounded-3xl p-8" data-testid="dialog-review">
+          <DialogHeader>
+            <DialogTitle className="font-serif text-2xl text-foreground">Share Your Experience</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
+              Your review will be visible on the website after Dr. Janvi approves it.
+            </DialogDescription>
+          </DialogHeader>
+
+          {submitSuccess ? (
+            <div className="flex flex-col items-center text-center py-8 gap-4" data-testid="review-success">
+              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+                <CheckCircle2 className="text-green-600 w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-serif font-bold text-foreground">Thank you!</h3>
+              <p className="text-muted-foreground text-sm max-w-xs">
+                Your review has been submitted. Once Dr. Janvi approves it, it will appear on the website.
+              </p>
+              <Button
+                className="rounded-full mt-2"
+                onClick={() => { setShowReviewModal(false); setSubmitSuccess(false); }}
+                data-testid="button-review-done"
+              >
+                Done
+              </Button>
+            </div>
+          ) : (
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmitReview)} className="space-y-5 mt-2">
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Your Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g. Priya Mehta" {...field} data-testid="input-review-name" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="role"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Your Role / Condition</FormLabel>
+                        <FormControl>
+                          <Input placeholder="e.g. Office Professional" {...field} data-testid="input-review-role" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="stars"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Rating</FormLabel>
+                      <FormControl>
+                        <div className="flex gap-2" data-testid="input-review-stars">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <button
+                              key={star}
+                              type="button"
+                              onMouseEnter={() => setHoverStar(star)}
+                              onMouseLeave={() => setHoverStar(0)}
+                              onClick={() => field.onChange(star)}
+                              className="focus:outline-none transition-transform hover:scale-110"
+                              data-testid={`star-${star}`}
+                              aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}
+                            >
+                              <Star
+                                size={28}
+                                className={
+                                  star <= (hoverStar || field.value)
+                                    ? "fill-amber-400 text-amber-400"
+                                    : "text-muted-foreground/30"
+                                }
+                              />
+                            </button>
+                          ))}
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="quote"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Your Review</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Tell us about your experience with Dr. Janvi and how TheBridgePT helped you..."
+                          className="resize-none min-h-[120px]"
+                          {...field}
+                          data-testid="input-review-quote"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <Button
+                  type="submit"
+                  className="w-full rounded-full h-12 text-base"
+                  disabled={submitMutation.isPending}
+                  data-testid="button-review-submit"
+                >
+                  {submitMutation.isPending ? (
+                    "Submitting..."
+                  ) : (
+                    <>
+                      <Send size={16} className="mr-2" />
+                      Submit Review
+                    </>
+                  )}
+                </Button>
+              </form>
+            </Form>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Floating WhatsApp Button */}
       <a

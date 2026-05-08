@@ -14,3 +14,55 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Returns all approved patient testimonials
+ * @summary List approved testimonials
+ */
+export const ListTestimonialsResponseItem = zod.object({
+  id: zod.number(),
+  name: zod.string(),
+  role: zod.string(),
+  quote: zod.string(),
+  stars: zod.number(),
+  status: zod.string(),
+  createdAt: zod.coerce.date(),
+});
+export const ListTestimonialsResponse = zod.array(ListTestimonialsResponseItem);
+
+/**
+ * Submit a patient testimonial for review (starts as pending)
+ * @summary Submit a new testimonial
+ */
+export const submitTestimonialBodyNameMin = 2;
+
+export const submitTestimonialBodyRoleMin = 2;
+
+export const submitTestimonialBodyQuoteMin = 20;
+
+export const submitTestimonialBodyStarsMax = 5;
+
+export const SubmitTestimonialBody = zod.object({
+  name: zod.string().min(submitTestimonialBodyNameMin),
+  role: zod.string().min(submitTestimonialBodyRoleMin),
+  quote: zod.string().min(submitTestimonialBodyQuoteMin),
+  stars: zod.number().min(1).max(submitTestimonialBodyStarsMax),
+});
+
+/**
+ * Approve a pending testimonial so it appears on the website
+ * @summary Approve a testimonial
+ */
+export const ApproveTestimonialParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const ApproveTestimonialResponse = zod.object({
+  id: zod.number(),
+  name: zod.string(),
+  role: zod.string(),
+  quote: zod.string(),
+  stars: zod.number(),
+  status: zod.string(),
+  createdAt: zod.coerce.date(),
+});

@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: testimonials
+    description: Patient testimonial operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,70 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /testimonials:
+    get:
+      operationId: listTestimonials
+      tags: [testimonials]
+      summary: List approved testimonials
+      description: Returns all approved patient testimonials
+      responses:
+        "200":
+          description: List of approved testimonials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Testimonial"
+    post:
+      operationId: submitTestimonial
+      tags: [testimonials]
+      summary: Submit a new testimonial
+      description: Submit a patient testimonial for review (starts as pending)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitTestimonialBody"
+      responses:
+        "201":
+          description: Testimonial submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Testimonial"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /testimonials/{id}/approve:
+    patch:
+      operationId: approveTestimonial
+      tags: [testimonials]
+      summary: Approve a testimonial
+      description: Approve a pending testimonial so it appears on the website
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Testimonial approved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Testimonial"
+        "404":
+          description: Testimonial not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +99,57 @@ components:
           type: string
       required:
         - status
-
+    Testimonial:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        role:
+          type: string
+        quote:
+          type: string
+        stars:
+          type: integer
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - role
+        - quote
+        - stars
+        - status
+        - createdAt
+    SubmitTestimonialBody:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 2
+        role:
+          type: string
+          minLength: 2
+        quote:
+          type: string
+          minLength: 20
+        stars:
+          type: integer
+          minimum: 1
+          maximum: 5
+      required:
+        - name
+        - role
+        - quote
+        - stars
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
