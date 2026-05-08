@@ -1,0 +1,49 @@
+Act as an expert frontend web developer and UI/UX designer. I need you to build a complete, fully responsive, modern single-page website for a physiotherapy practice. 
+
+**Tech Stack:** Use React, Vite, Tailwind CSS, and Lucide React for icons. Ensure the code is clean, modular, and handles all routing and state seamlessly. 
+
+**Design & Vibe:** The design should be clean, professional, warm, and medical yet inviting. Use a color palette of calming healthcare blues, teals, soft whites, and light grays. The site must be highly optimized for mobile devices, as most users will be viewing it from their phones.
+
+**SEO & Metadata (Crucial):** Please update the `<head>` section of the website with proper SEO meta tags so it ranks well on Google. 
+* Set the title to: "TheBridgePT | Dr. Janvi Sarvaiya | Physiotherapy in Bareja, Ahmedabad"
+* Add a meta description that says: "Get personalized 1-on-1 physiotherapy care, home visits, and telehealth consultations with Dr. Janvi Sarvaiya in Bareja and Ahmedabad. Book your session today."
+* Ensure the HTML tags are semantically structured for search engine indexing.
+
+Please structure the website with the following sections and exact content:
+
+**1. Header / Navigation**
+* **Logo Text:** TheBridgePT
+* **Links:** About, Services, How It Works, Contact.
+* **Sticky Header:** Keep the header visible when scrolling.
+
+**2. Hero Section**
+* **Headline:** Bridging the Gap Between Pain and Perfect Movement.
+* **Subheadline:** 1-on-1 personalized physiotherapy care and home visits in Ahmedabad.
+* **Call-to-Action (CTA) Button:** "Book Your Session" (Make this button link to the Contact section or directly open a WhatsApp chat).
+
+**3. About Me Section**
+* **Header:** Meet Dr. Janvi Sarvaiya (PT)
+* **Content:** "Welcome! I am Dr. Janvi Sarvaiya (PT), a dedicated physiotherapist and the founder of TheBridgePT. I am deeply passionate about helping people overcome musculoskeletal pain, recover from injuries, and regain their independence. My mission is simple: to provide focused, one-on-one personalized care that empowers you to move better, feel better, and live a pain-free life. At TheBridgePT, I believe that no two bodies are the same, and neither are their recoveries. I hold advanced certifications in modern physiotherapy techniques, allowing me to build highly customized treatment plans."
+* **Image Placeholder:** Create a clean, nicely styled placeholder box for a profile picture.
+
+**4. Services & Specializations (Use a Grid Layout with Icons)**
+* **Who I Help:** Athletes, elderly patients, office workers with back pain, joint replacement patients, and anyone with musculoskeletal pain or injuries.
+* **Core Treatments:** Post-surgery rehab, sports injuries, chronic pain management, stroke recovery.
+* **Advanced Techniques:** Manual therapy, Cupping therapy, Ergonomic assessments, Kinesio taping, IASTM (Instrument-Assisted Soft Tissue Mobilization).
+* **Packages:** Mention that single sessions and bundled recovery packages are available.
+
+**5. How It Works (Logistics)**
+* **Location Model:** Highlight "Mobile Physiotherapy (Home Visits)" and "Online Telehealth Consultations".
+* **Service Areas:** Explicitly list Bareja, Ahmedabad, and the 382425 pin code.
+
+**6. Contact & CTA Section (Crucial)**
+* **Headline:** Ready to start your recovery?
+* **Text:** Let’s discuss your symptoms, formulate a plan, and get you back to doing what you love. Please contact me directly to inquire about pricing and availability.
+* **WhatsApp Integration:** Create a prominent, highly visible WhatsApp button. The link should be formatted as `https://wa.me/918347920492` so it opens directly in the user's app. 
+* **Floating Action Button:** Add a floating WhatsApp icon in the bottom right corner of the screen that stays visible as the user scrolls.
+
+**7. Footer**
+* Copyright © 2026 TheBridgePT. All rights reserved.
+* Dr. Janvi Sarvaiya (PT)
+
+Please generate the full working code for this website, ensuring all sections flow logically with smooth scrolling.
