@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope, ChevronLeft, ChevronRight, Star, Send, CheckCircle2 } from "lucide-react";
+import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope, ChevronLeft, ChevronRight, Star, Send, CheckCircle2, Linkedin, Instagram } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useListTestimonials, useSubmitTestimonial } from "@workspace/api-client-react";
 import logoSrc from "@assets/8091f93f-82a7-472d-a344-02b2eedf6658_1778220687613.jpeg";
+import drJanviPhoto from "@assets/1DBBDB17-A3ED-48C2-A590-C51B40AA8790_1778224227492.jpeg";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -233,9 +234,9 @@ export default function Home() {
                 <div className="relative max-w-md mx-auto">
                   <div className="aspect-square rounded-full overflow-hidden bg-primary/10 border-8 border-background shadow-xl flex items-center justify-center relative z-10">
                     <img 
-                      src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=2070&auto=format&fit=crop" 
+                      src={drJanviPhoto}
                       alt="Dr. Janvi Sarvaiya" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-top"
                     />
                   </div>
                   <div className="absolute -bottom-6 -right-6 bg-background rounded-2xl p-4 shadow-lg border border-border/50 z-20">
@@ -627,10 +628,41 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="bg-background py-10 border-t border-border">
-        <div className="container mx-auto px-4 text-center flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
           <img src={logoSrc} alt="TheBridgePT" className="h-10 w-auto object-contain" />
-          <p className="text-sm text-muted-foreground">© 2026 TheBridgePT. All rights reserved.</p>
-          <p className="text-sm text-muted-foreground font-medium">Dr. Janvi Sarvaiya (PT)</p>
+          <p className="text-sm text-muted-foreground">© 2026 TheBridgePT. All rights reserved. · Dr. Janvi Sarvaiya (PT)</p>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://www.linkedin.com/in/dr-janvi-sarvaiya-pt-0b6385282"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-[#0A66C2] hover:text-white transition-all"
+              data-testid="link-linkedin"
+              aria-label="LinkedIn profile"
+            >
+              <Linkedin size={16} />
+            </a>
+            <a
+              href="https://www.instagram.com/thejanvisarvaiya"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-gradient-to-br hover:from-[#833ab4] hover:via-[#fd1d1d] hover:to-[#fcb045] hover:text-white transition-all"
+              data-testid="link-instagram"
+              aria-label="Instagram profile"
+            >
+              <Instagram size={16} />
+            </a>
+            <a
+              href="https://wa.me/918347920492"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:bg-[#25D366] hover:text-white transition-all"
+              data-testid="link-footer-whatsapp"
+              aria-label="WhatsApp"
+            >
+              <SiWhatsapp size={16} />
+            </a>
+          </div>
         </div>
       </footer>
 
@@ -640,7 +672,7 @@ export default function Home() {
           <DialogHeader>
             <DialogTitle className="font-serif text-2xl text-foreground">Share Your Experience</DialogTitle>
             <DialogDescription className="text-muted-foreground">
-              Your review will be visible on the website after Dr. Janvi approves it.
+              Your review will be published on the website immediately.
             </DialogDescription>
           </DialogHeader>
 
@@ -651,7 +683,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-serif font-bold text-foreground">Thank you!</h3>
               <p className="text-muted-foreground text-sm max-w-xs">
-                Your review has been submitted. Once Dr. Janvi approves it, it will appear on the website.
+                Your review is now live on the website. Thank you for taking the time to share your experience!
               </p>
               <Button
                 className="rounded-full mt-2"

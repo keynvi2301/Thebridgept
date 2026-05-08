@@ -30,7 +30,7 @@ router.post("/testimonials", async (req, res): Promise<void> => {
 
   const [testimonial] = await db
     .insert(testimonialsTable)
-    .values({ ...parsed.data, status: "pending" })
+    .values({ ...parsed.data, status: "approved" })
     .returning();
 
   req.log.info({ id: testimonial.id, name: testimonial.name }, "New testimonial submitted");
