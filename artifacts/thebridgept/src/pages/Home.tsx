@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import { Link } from "wouter";
-import { Menu, X, CheckCircle, Activity, Heart, ArrowRight, UserCheck, Stethoscope } from "lucide-react";
+import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import logoSrc from "@assets/8091f93f-82a7-472d-a344-02b2eedf6658_1778220687613.jpeg";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -51,11 +51,11 @@ export default function Home() {
       >
         <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
           <div 
-            className="text-2xl font-serif font-bold text-primary cursor-pointer tracking-tight"
+            className="cursor-pointer"
             onClick={() => scrollToSection("hero")}
             data-testid="link-logo"
           >
-            TheBridgePT
+            <img src={logoSrc} alt="TheBridgePT" className="h-12 w-auto object-contain" />
           </div>
 
           {/* Desktop Nav */}
@@ -439,7 +439,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-background py-10 border-t border-border">
         <div className="container mx-auto px-4 text-center flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="font-serif font-bold text-lg text-foreground">TheBridgePT</p>
+          <img src={logoSrc} alt="TheBridgePT" className="h-10 w-auto object-contain" />
           <p className="text-sm text-muted-foreground">© 2026 TheBridgePT. All rights reserved.</p>
           <p className="text-sm text-muted-foreground font-medium">Dr. Janvi Sarvaiya (PT)</p>
         </div>
