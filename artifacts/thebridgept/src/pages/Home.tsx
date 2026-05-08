@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope, ChevronLeft, ChevronRight, Star, Send, CheckCircle2, Linkedin, Instagram } from "lucide-react";
+import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope, ChevronLeft, ChevronRight, Star, Send, CheckCircle2, Linkedin, Instagram, Plus } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
 import { useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
@@ -13,6 +13,40 @@ import { Textarea } from "@/components/ui/textarea";
 import { useListTestimonials, useSubmitTestimonial } from "@workspace/api-client-react";
 import logoSrc from "@assets/8091f93f-82a7-472d-a344-02b2eedf6658_1778220687613.jpeg";
 import drJanviPhoto from "@assets/1DBBDB17-A3ED-48C2-A590-C51B40AA8790_1778224227492.jpeg";
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="py-5">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-start justify-between gap-4 text-left group"
+        aria-expanded={open}
+      >
+        <span className="text-base md:text-lg font-medium text-foreground group-hover:text-primary transition-colors leading-snug">
+          {q}
+        </span>
+        <span
+          className={`shrink-0 w-7 h-7 rounded-full border border-border flex items-center justify-center text-muted-foreground group-hover:border-primary group-hover:text-primary transition-all duration-300 ${
+            open ? "rotate-45 bg-primary text-primary-foreground border-primary" : ""
+          }`}
+        >
+          <Plus size={15} />
+        </span>
+      </button>
+      {open && (
+        <motion.p
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+          className="mt-4 text-muted-foreground leading-relaxed text-sm md:text-base pr-12"
+        >
+          {a}
+        </motion.p>
+      )}
+    </div>
+  );
+}
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -590,6 +624,69 @@ export default function Home() {
                 </div>
               </motion.div>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section id="faq" className="py-24 bg-background">
+          <div className="container mx-auto px-4 md:px-6">
+            <motion.div
+              className="text-center max-w-2xl mx-auto mb-14"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+            >
+              <motion.p variants={fadeUp} className="text-sm font-medium text-primary uppercase tracking-widest mb-3">
+                FAQs
+              </motion.p>
+              <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-serif font-bold text-foreground">
+                Common Questions Answered
+              </motion.h2>
+            </motion.div>
+
+            <motion.div
+              className="max-w-3xl mx-auto divide-y divide-border"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+            >
+              {[
+                {
+                  q: "What should I bring to my first session?",
+                  a: "Just wear comfortable, loose-fitting clothing that allows easy access to the area being treated. Bring any previous medical reports, X-rays, MRI scans, or discharge summaries you have. For home visits, simply clear a small space — Dr. Janvi brings all necessary equipment.",
+                },
+                {
+                  q: "How do home visits work?",
+                  a: "After you book via WhatsApp, Dr. Janvi will confirm an appointment time and come directly to your home in Bareja or Ahmedabad (pin code 382425). You receive the same quality of hands-on physiotherapy care without the discomfort of travelling in pain.",
+                },
+                {
+                  q: "What conditions do you treat?",
+                  a: "TheBridgePT treats a wide range of musculoskeletal and neurological conditions — including back and neck pain, sports injuries, post-surgical rehabilitation, joint replacement recovery, stroke rehabilitation, chronic pain, and ergonomic-related conditions from desk work.",
+                },
+                {
+                  q: "How many sessions will I need?",
+                  a: "Every recovery is different. After an initial assessment, Dr. Janvi will give you a personalised estimate. Acute conditions may resolve in 4–6 sessions, while complex or chronic conditions may require a longer programme. Both single sessions and bundled recovery packages are available.",
+                },
+                {
+                  q: "Are telehealth consultations as effective as in-person sessions?",
+                  a: "For assessments, guided exercise programmes, and follow-up consultations, telehealth works very well. Hands-on treatments like manual therapy, cupping, or IASTM require an in-person or home visit session. Dr. Janvi will recommend the right format for your specific needs.",
+                },
+                {
+                  q: "How do I book and what does it cost?",
+                  a: "Simply message Dr. Janvi directly on WhatsApp to enquire about availability, discuss your symptoms, and get pricing information. Pricing is provided personally based on the type of session, your location, and the treatment plan required.",
+                },
+                {
+                  q: "Is physiotherapy painful?",
+                  a: "Treatment should never be excessively painful. You may feel some discomfort during hands-on therapy or targeted exercises — this is normal and a sign that the right areas are being worked on. Dr. Janvi always works within your comfort level and adjusts techniques accordingly.",
+                },
+              ].map((item, i) => (
+                <motion.div key={i} variants={fadeUp}>
+                  <FaqItem q={item.q} a={item.a} />
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
         </section>
 
