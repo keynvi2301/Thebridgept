@@ -1,13 +1,60 @@
 import { motion } from "framer-motion";
-import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope } from "lucide-react";
+import { Menu, X, CheckCircle, Activity, Heart, UserCheck, Stethoscope, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { SiWhatsapp } from "react-icons/si";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import logoSrc from "@assets/8091f93f-82a7-472d-a344-02b2eedf6658_1778220687613.jpeg";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  const testimonials = [
+    {
+      name: "Priya Mehta",
+      role: "Office Professional",
+      quote: "I had been struggling with lower back pain for over two years. After just six sessions with Dr. Janvi, I was pain-free and back at my desk without discomfort. The home visits made it so easy — no travelling in pain.",
+      stars: 5,
+    },
+    {
+      name: "Arjun Shah",
+      role: "Amateur Cricketer",
+      quote: "I tore my rotator cuff mid-season and thought my year was over. Dr. Janvi's sports rehabilitation plan had me back on the field faster than I ever imagined. Incredibly knowledgeable and genuinely invested in my recovery.",
+      stars: 5,
+    },
+    {
+      name: "Rekha Patel",
+      role: "Post Knee Replacement Patient",
+      quote: "After my knee replacement, I was nervous about physiotherapy. Dr. Janvi was patient, thorough, and explained every step. Within three months I was climbing stairs comfortably. I recommend TheBridgePT to everyone.",
+      stars: 5,
+    },
+    {
+      name: "Vikram Desai",
+      role: "Senior, Age 68",
+      quote: "The telehealth consultation was a blessing. Dr. Janvi assessed my posture and movement over video and gave me a clear exercise program. My mobility has improved significantly and I feel years younger.",
+      stars: 5,
+    },
+    {
+      name: "Nisha Trivedi",
+      role: "Marathon Runner",
+      quote: "Persistent shin splints were ruining my training. Dr. Janvi used IASTM and Kinesio taping techniques I had never experienced before. The results were remarkable. I completed my marathon pain-free.",
+      stars: 5,
+    },
+  ];
+
+  const nextTestimonial = useCallback(() => {
+    setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+  }, [testimonials.length]);
+
+  const prevTestimonial = useCallback(() => {
+    setActiveTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  }, [testimonials.length]);
+
+  useEffect(() => {
+    const timer = setInterval(nextTestimonial, 5000);
+    return () => clearInterval(timer);
+  }, [nextTestimonial]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -319,6 +366,121 @@ export default function Home() {
                 </div>
               </motion.div>
             </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section id="testimonials" className="py-24 bg-secondary/20 overflow-hidden">
+          <div className="container mx-auto px-4 md:px-6">
+            <motion.div
+              className="text-center max-w-2xl mx-auto mb-14"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+            >
+              <motion.p variants={fadeUp} className="text-sm font-medium text-primary uppercase tracking-widest mb-3">
+                Patient Stories
+              </motion.p>
+              <motion.h2 variants={fadeUp} className="text-3xl md:text-4xl font-serif font-bold text-foreground">
+                Real Recoveries, Real Results
+              </motion.h2>
+            </motion.div>
+
+            <motion.div
+              className="relative max-w-3xl mx-auto"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeUp}
+            >
+              {/* Card */}
+              <div className="relative bg-background rounded-3xl shadow-xl border border-border/50 px-8 py-10 md:px-14 md:py-14 min-h-[280px] flex flex-col justify-between overflow-hidden">
+                {/* Quote mark */}
+                <span className="absolute top-6 left-8 text-8xl font-serif text-primary/10 leading-none select-none">"</span>
+
+                <div className="relative z-10">
+                  {/* Stars */}
+                  <div className="flex gap-1 mb-6" data-testid="testimonial-stars">
+                    {Array.from({ length: testimonials[activeTestimonial].stars }).map((_, i) => (
+                      <Star key={i} size={18} className="fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+
+                  {/* Quote */}
+                  <motion.p
+                    key={activeTestimonial}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.4 }}
+                    className="text-lg md:text-xl text-foreground/80 leading-relaxed font-light italic mb-8"
+                    data-testid={`testimonial-quote-${activeTestimonial}`}
+                  >
+                    "{testimonials[activeTestimonial].quote}"
+                  </motion.p>
+
+                  {/* Author */}
+                  <motion.div
+                    key={`author-${activeTestimonial}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="flex items-center gap-4"
+                  >
+                    <div className="w-11 h-11 rounded-full bg-primary/15 flex items-center justify-center text-primary font-bold text-base font-serif shrink-0">
+                      {testimonials[activeTestimonial].name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground" data-testid={`testimonial-name-${activeTestimonial}`}>
+                        {testimonials[activeTestimonial].name}
+                      </p>
+                      <p className="text-sm text-muted-foreground">{testimonials[activeTestimonial].role}</p>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Controls */}
+              <div className="flex items-center justify-between mt-8">
+                {/* Dot indicators */}
+                <div className="flex gap-2">
+                  {testimonials.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveTestimonial(i)}
+                      className={`rounded-full transition-all duration-300 ${
+                        i === activeTestimonial
+                          ? "w-8 h-2.5 bg-primary"
+                          : "w-2.5 h-2.5 bg-border hover:bg-primary/40"
+                      }`}
+                      data-testid={`testimonial-dot-${i}`}
+                      aria-label={`Go to testimonial ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                {/* Prev / Next */}
+                <div className="flex gap-3">
+                  <button
+                    onClick={prevTestimonial}
+                    className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+                    data-testid="button-testimonial-prev"
+                    aria-label="Previous testimonial"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    onClick={nextTestimonial}
+                    className="w-11 h-11 rounded-full border border-border flex items-center justify-center text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all"
+                    data-testid="button-testimonial-next"
+                    aria-label="Next testimonial"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
