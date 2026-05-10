@@ -427,28 +427,12 @@ export default function Home() {
                 </div>
 </motion.div>
         {/* Why Choose */}
-        <motion.div className="bg-primary text-primary-foreground rounded-3xl p-8 shadow-md" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: 0.3 }}>
-
-  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-white mb-4"
-    <Star size={24} />
-  </div>
+<motion.div className="bg-primary text-primary-foreground rounded-3xl p-8 shadow-md" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: 0.3 }}>
+  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-white mb-4"><Star size={24} /></div>
   <h3 className="text-xl font-serif font-bold mb-4 text-white">Why Choose The Bridge PT</h3>
-  <ul className="space-y-3">
-    {[
-      "Personalized One-to-One Care",
-      "Evidence-Based Treatment Approach",
-      "Goal-Oriented Rehabilitation",
-      "Modern Exercise-Based Therapy",
-      "Focus on Long-Term Recovery",
-      "Patient Education & Self-Management"
-    ].map((item, i) => (
-      <li key={i} className="flex items-start gap-3">
-        <CheckCircle className="text-white shrink-0 mt-0.5" size={18} />
-        <span className="text-white/90 text-sm leading-snug">{item}</span>
-      </li>
-    ))}
-  </ul>
+  <ul className="space-y-3">{["Personalized One-to-One Care","Evidence-Based Treatment Approach","Goal-Oriented Rehabilitation","Modern Exercise-Based Therapy","Focus on Long-Term Recovery","Patient Education & Self-Management"].map((item, i) => (<li key={i} className="flex items-start gap-3"><CheckCircle className="text-white shrink-0 mt-0.5" size={18} /><span className="text-white/90 text-sm leading-snug">{item}</span></li>))}</ul>
 </motion.div>
+
 </div>
           </div>
         </section>
