@@ -402,11 +402,18 @@ export default function Home() {
                 <h3 className="text-xl font-serif font-bold mb-4 text-foreground">Advanced Techniques</h3>
                 <ul className="space-y-3 mb-6">
                   {[
-                    "Manual therapy",
-                    "Cupping therapy",
-                    "Ergonomic assessments",
-                    "Kinesio taping",
-                    "IASTM"
+                    "Manual Therapy",
+                    "Sports Injury Rehabilitation",
+                    "IASTM (Instrument Assisted Soft Tissue Mobilization)",
+                    "Cupping Therapy",
+                    "Kinesiology & Sports Taping",
+                    "Posture & Ergonomic Correction",
+                    "Strength & Conditioning Programs",
+                    "Balance & Coordination Training",
+                    "Functional Movement Assessment",
+                    "Personalized Home Exercise Programs",
+                    "Mobility & Flexibility Training",
+                    "Pain Management Rehabilitation"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle className="text-primary shrink-0 mt-0.5" size={18} />
