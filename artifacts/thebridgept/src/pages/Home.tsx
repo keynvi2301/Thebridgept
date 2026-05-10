@@ -425,10 +425,10 @@ export default function Home() {
                   <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Packages Available</p>
                   <p className="text-sm text-foreground/80 mt-1">Single sessions & bundled recovery packages.</p>
                 </div>
- </motion.div>
-              {/* Why Choose */}
-              <motion.div
-  className="bg-primary text-primary-foreground rounded-3xl p-8 shadow-md"
+</motion.div>
+        {/* Why Choose */}
+        <motion.div
+            className="bg-primary text-primary-foreground rounded-3xl p-8 shadow-md"
   initial="hidden"
   whileInView="visible"
   viewport={{ once: true }}
