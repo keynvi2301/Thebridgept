@@ -427,14 +427,8 @@ export default function Home() {
                 </div>
 </motion.div>
         {/* Why Choose */}
-        <motion.div
-            className="bg-primary text-primary-foreground rounded-3xl p-8 shadow-md"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
-  variants={fadeUp}
-  transition={{ delay: 0.3 }}
->
+        <motion.div className="bg-primary text-primary-foreground rounded-3xl p-8 shadow-md" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} transition={{ delay: 0.3 }}>
+
   <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-white mb-4"
     <Star size={24} />
   </div>
