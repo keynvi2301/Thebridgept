@@ -342,11 +342,13 @@ export default function Home() {
                 <h3 className="text-xl font-serif font-bold mb-4 text-foreground">Who I Help</h3>
                 <ul className="space-y-3">
                   {[
-                    "Athletes & Sports persons",
-                    "Elderly patients",
-                    "Office workers with back/neck pain",
-                    "Post joint replacement patients",
-                    "Anyone with musculoskeletal pain"
+                    "Individuals with neck, back, shoulder, knee, and joint pain",
+                    "Patients recovering after fractures, surgeries, or injuries",
+                    "Athletes recovering from sports injuries and performance limitations",
+                    "Neurological patients with balance, coordination, or movement difficulties",
+                    "Women experiencing pregnancy-related or postural pain",
+                    "Office workers with posture and ergonomic issues",
+                    "Elderly individuals needing mobility, strength, and balance rehabilitation"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle className="text-primary shrink-0 mt-0.5" size={18} />
