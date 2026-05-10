@@ -380,7 +380,7 @@ export default function Home() {
                     "Sports Physiotherapy"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 rounded-full bg-white/80 mt-2 shrink-0" />
+                      <CheckCircle className="text-white shrink-0 mt-0.5" size={18} />
                       <span className="text-white/90 text-sm leading-snug">{item}</span>
                     </li>
                   ))}
