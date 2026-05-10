@@ -352,7 +352,7 @@ export default function Home() {
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle className="text-primary shrink-0 mt-0.5" size={18} />
-                      <span className="text-white/90 text-sm leading-snug">{item}</span>
+        <span className="text-foreground/80 text-sm leading-snug">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -425,9 +425,9 @@ export default function Home() {
                   <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Packages Available</p>
                   <p className="text-sm text-foreground/80 mt-1">Single sessions & bundled recovery packages.</p>
                 </div>
-              </motion.div>
+ </motion.div>
               {/* Why Choose */}
-<motion.div
+              <motion.div
   className="bg-primary text-primary-foreground rounded-3xl p-8 shadow-md"
   initial="hidden"
   whileInView="visible"
@@ -435,7 +435,7 @@ export default function Home() {
   variants={fadeUp}
   transition={{ delay: 0.3 }}
 >
-  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-6">
+  <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center text-white mb-4"
     <Star size={24} />
   </div>
   <h3 className="text-xl font-serif font-bold mb-4 text-white">Why Choose The Bridge PT</h3>
@@ -449,13 +449,13 @@ export default function Home() {
       "Patient Education & Self-Management"
     ].map((item, i) => (
       <li key={i} className="flex items-start gap-3">
-        <CheckCircle className="text-primary shrink-0 mt-0.5" size={18} />
+        <CheckCircle className="text-white shrink-0 mt-0.5" size={18} />
         <span className="text-white/90 text-sm leading-snug">{item}</span>
       </li>
     ))}
   </ul>
 </motion.div>
-            </div>
+</div>
           </div>
         </section>
 
