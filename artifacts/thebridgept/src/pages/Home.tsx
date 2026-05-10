@@ -373,10 +373,11 @@ export default function Home() {
                 <h3 className="text-xl font-serif font-bold mb-4">Core Treatments</h3>
                 <ul className="space-y-3">
                   {[
-                    "Post-surgery rehabilitation",
-                    "Sports injury recovery",
-                    "Chronic pain management",
-                    "Stroke & neurological recovery"
+                    "Musculoskeletal Physiotherapy",
+                    "Orthopaedic Physiotherapy",
+                    "Neuro Physiotherapy",
+                    "Women's Health Physiotherapy",
+                    "Sports Physiotherapy"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-white/80 mt-2 shrink-0" />
